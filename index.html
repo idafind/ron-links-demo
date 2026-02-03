@@ -281,9 +281,9 @@
       <input type="text" id="newLinkURL" placeholder="URL (e.g., https://example.com)" />
 
       <select id="newLinkSection">
-        <option value="lumpia">Lumpia Xpress</option>
-        <option value="idafind">IdaFind</option>
-        <option value="home">Home + Misc</option>
+        <option value="coffee">Coffee Shop</option>
+        <option value="webdev">Web Developer</option>
+        <option value="various">Various</option>
       </select>
 
       <select id="newLinkCategory"></select>
@@ -294,40 +294,40 @@
   </div>
 
   <div class="grid">
-    <section class="panel" id="panel-lumpia">
+    <section class="panel" id="panel-coffee">
       <div class="panel-header">
         <div>
-          <div class="panel-title">Lumpia Xpress</div>
+          <div class="panel-title">Coffee Shop</div>
           <div class="panel-sub">Categories expand/collapse • Drag links between categories/panels</div>
-          <button class="new-cat-btn" type="button" data-section="lumpia">+ Category</button>
+          <button class="new-cat-btn" type="button" data-section="coffee">+ Category</button>
       </div>
       </div>
       <div class="panel-body">
-        <div class="panel-body-inner" id="lumpia-body"></div>
+        <div class="panel-body-inner" id="coffee-body"></div>
       </div>
     </section>
 
-    <section class="panel" id="panel-idafind">
+    <section class="panel" id="panel-webdev">
       <div class="panel-header">
         <div>
-          <div class="panel-title">IdaFind</div>
+          <div class="panel-title">Web Developer</div>
           <div class="panel-sub">Categories expand/collapse • Drag links between categories/panels</div>
-          <button class="new-cat-btn" type="button" data-section="idafind">+ Category</button>
+          <button class="new-cat-btn" type="button" data-section="webdev">+ Category</button>
       </div>
       </div>
-      <div class="panel-body" id="idafind-body"></div>
+      <div class="panel-body" id="webdev-body"></div>
     </section>
 
-    <section class="panel" id="panel-home">
+    <section class="panel" id="panel-various">
       <div class="panel-header">
         <div>
-          <div class="panel-title">Home + Misc</div>
+          <div class="panel-title">Various</div>
           <div class="panel-sub">Categories expand/collapse • Drag links between categories/panels</div>
-          <button class="new-cat-btn" type="button" data-section="home">+ Category</button>
+          <button class="new-cat-btn" type="button" data-section="various">+ Category</button>
       </div>
       </div>
       <div class="panel-body">
-        <div class="panel-body-inner" id="home-body"></div>
+        <div class="panel-body-inner" id="various-body"></div>
       </div>
     </section>
   </div>
@@ -367,7 +367,7 @@
 
 
   // Drag state:
-  // { from: "lumpia"|"idafind"|"home", categoryIndex: number, linkIndex: number }
+  // { from: "coffee"|"webdev"|"various", categoryIndex: number, linkIndex: number }
   let dragData = null;
   let catDragData = null; // { fromSection, catIndex }
 
@@ -426,9 +426,9 @@ async function loadRaw() {
 
   function emptyModel() {
     return [
-      { title: "Lumpia Xpress", categories: [{ title: "Links", links: [] }] },
-      { title: "IdaFind", categories: [{ title: "Links", links: [] }] },
-      { title: "Home + Misc", categories: [{ title: "Links", links: [] }] }
+      { title: "Coffee Shop", categories: [{ title: "Links", links: [] }] },
+      { title: "Web Developer", categories: [{ title: "Links", links: [] }] },
+      { title: "Various", categories: [{ title: "Links", links: [] }] }
     ];
   }
 
@@ -455,7 +455,7 @@ async function loadRaw() {
 
     if (isUnifiedCategoryModel(raw)) return raw;
 
-    // Previous Option 2 model -> wrap Lumpia/Home links into default categories
+    // Previous Option 2 model -> wrap Coffee/Web Developer links into default categories
     if (isPreviousOption2Model(raw)) {
       out[0].categories[0].links = raw[0].links || [];
       out[1].categories = raw[1].categories || [{ title: "Links", links: [] }];
@@ -468,7 +468,7 @@ async function loadRaw() {
     const cols = raw.filter(x => x && Array.isArray(x.links));
 
     if (cols.length <= 6) {
-      // 6-col world: Lumpia 0-1, IdaFind 2-3, Home 4-5
+      // 6-col world: Coffee 0-1, Web Developer 2-3, Various 4-5
       const l = [0,1].flatMap(i => (cols[i]?.links || []));
       const i = [2,3].flatMap(i => (cols[i]?.links || []));
       const h = [4,5].flatMap(i => (cols[i]?.links || []));
@@ -478,13 +478,13 @@ async function loadRaw() {
       return out;
     }
 
-    // 9+ columns: Lumpia 0-2, IdaFind 3-5, Home 6+ (6-8 and beyond)
-    const lumpia = [0,1,2].flatMap(i => (cols[i]?.links || []));
-    const idafind = [3,4,5].flatMap(i => (cols[i]?.links || []));
-    const home = cols.slice(6).flatMap(c => (c.links || []));
-    out[0].categories[0].links = lumpia;
-    out[1].categories[0].links = idafind;
-    out[2].categories[0].links = home;
+    // 9+ columns: Coffee 0-2, Web Developer 3-5, Various 6+ (6-8 and beyond)
+    const coffee = [0,1,2].flatMap(i => (cols[i]?.links || []));
+    const webdev = [3,4,5].flatMap(i => (cols[i]?.links || []));
+    const various = cols.slice(6).flatMap(c => (c.links || []));
+    out[0].categories[0].links = coffee;
+    out[1].categories[0].links = webdev;
+    out[2].categories[0].links = various;
     return out;
   }
 
@@ -522,13 +522,13 @@ async function saveModel() {
 
 
   // ---------- Rendering ----------
-  const lumpiaBody = document.getElementById("lumpia-body");
-  const idafindBody = document.getElementById("idafind-body");
-  const homeBody = document.getElementById("home-body");
+  const coffeeBody = document.getElementById("coffee-body");
+  const webdevBody = document.getElementById("webdev-body");
+  const variousBody = document.getElementById("various-body");
 
   function sectionIndexByName(name) {
-    if (name === "lumpia") return 0;
-    if (name === "idafind") return 1;
+    if (name === "coffee") return 0;
+    if (name === "webdev") return 1;
     return 2;
   }
 
@@ -791,9 +791,9 @@ async function saveModel() {
   }
 
   function renderAll() {
-    renderSection(lumpiaBody, "lumpia");
-    renderSection(idafindBody, "idafind");
-    renderSection(homeBody, "home");
+    renderSection(coffeeBody, "coffee");
+    renderSection(webdevBody, "webdev");
+    renderSection(variousBody, "variou");
     refreshCategoryUI();
   }
 
@@ -949,7 +949,7 @@ if (deleteArea) {
     });
 
     // Update placeholder to match section
-    const label = secName === "lumpia" ? "Lumpia" : (secName === "idafind" ? "IdaFind" : "Home");
+    const label = secName === "coffee" ? "Coffee" : (secName === "webdev" ? "Webdev" : "Home");
     newCategoryInput.placeholder = "New category (optional • " + label + ")";
   }
 
@@ -1018,9 +1018,9 @@ function resetDemo() {
     model = migrateLegacy(raw);
 
     // Ensure consistent shapes
-    model[0] = ensureSectionShape(model[0], "Lumpia Xpress");
-    model[1] = ensureSectionShape(model[1], "IdaFind");
-    model[2] = ensureSectionShape(model[2], "Home + Misc");
+    model[0] = ensureSectionShape(model[0], "Coffee Shop");
+    model[1] = ensureSectionShape(model[1], "Web Developer");
+    model[2] = ensureSectionShape(model[2], "Various");
 
     renderAll();
     if (DEMO_MODE) {
