@@ -272,6 +272,7 @@
   </span>
 </div>
 
+<button type="button" onclick="resetDemo()">Reset Demo</button>
 
     </div>
 
@@ -401,17 +402,27 @@
   }
 
   // ---------- Load / Save ----------
-  async function loadRaw() {
-    try {
-      const cacheBustingURL = JSON_FILE_PATH + '?t=' + new Date().getTime();
-      const r = await fetch(cacheBustingURL);
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      return await r.json();
-    } catch (e) {
-      console.error("Could not load links.json. Using empty default.", e);
-      return [];
-    }
+async function loadRaw() {
+  // 1) If user has been playing, load their sandbox state first
+  try {
+    const saved = localStorage.getItem(LOCALSTORAGE_KEY);
+    if (saved) return JSON.parse(saved);
+  } catch (e) {
+    console.warn("localStorage load failed (will fall back to links.json):", e);
   }
+
+  // 2) Otherwise load from links.json
+  try {
+    const cacheBustingURL = JSON_FILE_PATH + '?t=' + new Date().getTime();
+    const r = await fetch(cacheBustingURL);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return await r.json();
+  } catch (e) {
+    console.error("Could not load links.json. Using empty default.", e);
+    return [];
+  }
+}
+
 
   function emptyModel() {
     return [
@@ -477,23 +488,38 @@
     return out;
   }
 
-  async function saveModel() {
-    try {
-      const response = await fetch(PHP_SAVE_SCRIPT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(model)
-      });
-      const result = await response.json().catch(() => ({}));
-      if (!response.ok) {
-        console.error("Server Save Error:", result.message || response.statusText);
-      } else {
-        console.log("Server Save Success:", result.message || "OK");
-      }
-    } catch (e) {
-      console.error("Network or PHP script execution error:", e);
-    }
+async function saveModel() {
+  // Always save to localStorage (so demo always works)
+  try {
+    localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(model));
+  } catch (e) {
+    console.warn("localStorage save failed:", e);
   }
+
+  // If we're on GitHub Pages, stop here (no PHP available)
+  if (DEMO_MODE) {
+    console.log("Demo mode: saved locally only.");
+    return;
+  }
+
+  // Otherwise try server save (VPS mode)
+  try {
+    const response = await fetch(PHP_SAVE_SCRIPT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(model)
+    });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      console.error("Server Save Error:", result.message || response.statusText);
+    } else {
+      console.log("Server Save Success:", result.message || "OK");
+    }
+  } catch (e) {
+    console.error("Network or PHP script execution error:", e);
+  }
+}
+
 
   // ---------- Rendering ----------
   const lumpiaBody = document.getElementById("lumpia-body");
@@ -965,7 +991,7 @@ if (deleteArea) {
     let catIdx = Number(categorySelect.value || "0");
 
     if (catName) {
-      sec.categories.push({ title: catName, links: [] });
+      sec.categories.push({ id: newCategoryId(), title: catName, links: [] });
       catIdx = sec.categories.length - 1;
       newCategoryInput.value = "";
     }
@@ -980,6 +1006,11 @@ if (deleteArea) {
     document.getElementById("newLinkTitle").value = "";
     document.getElementById("newLinkURL").value = "";
   });
+  
+function resetDemo() {
+  localStorage.removeItem(LOCALSTORAGE_KEY);
+  location.reload();
+}
 
   // ---------- Init ----------
   async function init() {
