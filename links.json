@@ -1,319 +1,231 @@
 [
-    {
-        "title": "Lumpia Xpress",
-        "categories": [
-            {
-                "title": "Daily",
-                "links": [
-                    {
-                        "title": "lumpiaxpress.com",
-                        "url": "https:\/\/lumpiaxpress.com\/"
-                    },
-                    {
-                        "title": "Square Register Fee",
-                        "url": "https:\/\/lumpiaxpress.com\/register-fee.html"
-                    },
-                    {
-                        "title": "lumpiaxpress.com\/admin",
-                        "url": "https:\/\/lumpiaxpress.com\/lumpia-xpress\/admin\/"
-                    },
-                    {
-                        "title": "FaceBook Page",
-                        "url": "https:\/\/www.facebook.com\/pg\/LumpiaXpress\/"
-                    },
-                    {
-                        "title": "Instagram LX",
-                        "url": "https:\/\/www.instagram.com\/lumpiaxpress\/"
-                    },
-                    {
-                        "title": "First Interstate Bank Login",
-                        "url": "https:\/\/www.firstinterstatebank.com\/login"
-                    },
-                    {
-                        "title": "Square Merchant Login",
-                        "url": "https:\/\/app.squareup.com\/dashboard\/"
-                    },
-                    {
-                        "title": "Square Order Online",
-                        "url": "https:\/\/lumpiaxpress.square.site\/"
-                    },
-                    {
-                        "title": "Door Dash",
-                        "url": "https:\/\/doordash.com"
-                    },
-                    {
-                        "title": "DoorDash Merchant Login",
-                        "url": "https:\/\/www.doordash.com\/merchant\/summary?_gl=1*1ncwnce*_gcl_au*NDU0OTYwMTUwLjE3MDU0NDEyODk.&store_id=1497883"
-                    }
-                ],
-                "id": "cat_m5600sdz_ml5ro29i"
-            },
-            {
-                "title": "Bills",
-                "links": [
-                    {
-                        "title": "IRS Quarterly Estimated Tax",
-                        "url": "https:\/\/directpay.irs.gov\/directpay\/payment?execution=e1s1"
-                    },
-                    {
-                        "title": "Idaho Sales\/Withhld Tax - TAP",
-                        "url": "https:\/\/idahotap.gentax.com\/TAP\/_\/"
-                    },
-                    {
-                        "title": "Intrmtn GAS Account",
-                        "url": "https:\/\/customer.intgas.com\/login"
-                    },
-                    {
-                        "title": "TRASH - Republic Services",
-                        "url": "https:\/\/www.republicservices.com\/account\/login"
-                    },
-                    {
-                        "title": "Idaho POWER",
-                        "url": "https:\/\/my.idahopower.com\/login\/login.cfm"
-                    },
-                    {
-                        "title": "ServSafe\u00ae - ServSafe Manager",
-                        "url": "https:\/\/www.servsafe.com\/ServSafe-Manager"
-                    },
-                    {
-                        "title": "Trademark Search (TESS)",
-                        "url": "https:\/\/tmsearch.uspto.gov\/bin\/gate.exe?f=searchss&state=4802:kmykr0.1.1"
-                    }
-                ],
-                "id": "cat_wmcsgs5a_ml5ro29i"
-            },
-            {
-                "title": "Shopping",
-                "links": [
-                    {
-                        "title": "Chef Store - Shoreline",
-                        "url": "https:\/\/www.chefstore.com\/locations\/store\/boise-564\/"
-                    },
-                    {
-                        "title": "Only From Hawaii Foods",
-                        "url": "https:\/\/www.onlyfromhawaii.com\/"
-                    },
-                    {
-                        "title": "Asian Food Grocer",
-                        "url": "https:\/\/www.asianfoodgrocer.com\/"
-                    },
-                    {
-                        "title": "WebstaurantStore",
-                        "url": "https:\/\/www.webstaurantstore.com\/?gclid=Cj0KCQiAqOucBhDrARIsAPCQL1bEQ-mc5GVimzwJrVVphkLDwzKNh0j-XoIfr2O9GHYvWXkPWrVXqwUaAskBEALw_wcB"
-                    },
-                    {
-                        "title": "Standard Restaurant Supply",
-                        "url": "https:\/\/www.standardrestaurant.com\/"
-                    },
-                    {
-                        "title": "WDF1000 PARTS TOWN - Waring 030306",
-                        "url": "https:\/\/www.partstown.com\/waring\/war030306"
-                    },
-                    {
-                        "title": "eReplacementParts.com Waring WDF-1000",
-                        "url": "https:\/\/www.ereplacementparts.com\/heating-elementwdf1000-120-volt-p-681850.html"
-                    }
-                ],
-                "id": "cat_m11kvirh_ml5ro29i"
-            },
-            {
-                "title": "Google",
-                "links": [
-                    {
-                        "title": "LX Google Business Info",
-                        "url": "https:\/\/www.google.com\/search?q=Lumpia%20Xpress&stick=H4sIAAAAAAAA_-NgU1I1qDA1SUw2SjZLTEw0SLQwNrG0MqhIM0pMMjAxTEqzAMqZG1ksYuX1Kc0tyExUiCgoSi0uBgDOj2biOQAAAA&hl=en&mat=CY8_6v78XKVRElcBmzl_pcUgpAMiwFFScydXTDr6kkmYj3Nz0vxtkBtjAfXrOMNq5XU_4E6P8JeXdpE8aWb7kSn_ZdwwCdPX52PY2Jhx-fIi2kh1Wt65RUGsDXU_DUpoutM&authuser=1"
-                    },
-                    {
-                        "title": "LX Yelp Business Info",
-                        "url": "https:\/\/business.yelp.com\/"
-                    },
-                    {
-                        "title": "Google Drive",
-                        "url": "https:\/\/drive.google.com\/drive\/u\/0\/home"
-                    },
-                    {
-                        "title": "Google Forms",
-                        "url": "https:\/\/docs.google.com\/forms\/u\/0\/"
-                    },
-                    {
-                        "title": "Website Questionnaire",
-                        "url": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLSc8qjdZTF35hxEXdqgr7n7O1nVZ-9rISu-J0LjU2BtjykRWew\/viewform?usp=header"
-                    },
-                    {
-                        "title": "Google Analytics",
-                        "url": "https:\/\/analytics.google.com\/analytics\/web\/#\/a376123710p514431749\/reports\/intelligenthome?params=_u..nav%3Dmaui"
-                    }
-                ],
-                "id": "cat_1z0yalhz_ml5ro29i"
-            }
-        ]
-    },
-    {
-        "title": "IdaFind",
-        "categories": [
-            {
-                "title": "IONOS",
-                "links": [
-                    {
-                        "title": "IONOS Login",
-                        "url": "https:\/\/login.ionos.com\/?redirect_url=https%3A%2F%2Fmy.ionos.com%2Fstart-with-domain%3Futm_campaign%3Dmailactivation_trigger%26utm_medium%3Dprimary_button%26utm_source%3Dmail%26ac%3DOM.CU.CU263K419230T7073a%26utm_rid%3D43d8bafa-c25b-410b-9e92-eeaa3bf5647d"
-                    },
-                    {
-                        "title": "ThoughtPig.com",
-                        "url": "https:\/\/thoughtpig.com\/"
-                    },
-                    {
-                        "title": "ThoughtPig Editor",
-                        "url": "https:\/\/thoughtpig.com\/editor-launch.php"
-                    }
-                ],
-                "id": "cat_ls4j4i8l_ml5ro29i"
-            },
-            {
-                "title": "Financial",
-                "links": [
-                    {
-                        "title": "USAA",
-                        "url": "https:\/\/www.usaa.com\/?akredirect=true"
-                    }
-                ],
-                "id": "cat_3xlo4mgg_ml5ro29i"
-            },
-            {
-                "title": "Clients",
-                "links": [
-                    {
-                        "title": "Website Intake",
-                        "url": "https:\/\/idafind.com\/client-questionnaire\/website-intake.php"
-                    },
-                    {
-                        "title": "Website Intake Editor + Client",
-                        "url": "https:\/\/idafind.com\/client-questionnaire\/website-intake-editor.php"
-                    },
-                    {
-                        "title": "Setmore (Sched. Appointmts)",
-                        "url": "https:\/\/www.setmore.com"
-                    },
-                    {
-                        "title": "FormSpree (Email Form Data)",
-                        "url": "https:\/\/formspree.io\/"
-                    }
-                ],
-                "id": "cat_zm7bqc47_ml5ro29i"
-            },
-            {
-                "title": "Web Development",
-                "links": [
-                    {
-                        "title": "Blue Host",
-                        "url": "https:\/\/my.bluehost.com\/web-hosting\/cplogin?_ga=2.140955826.1212115832.1595175179-608443942.1593230383"
-                    },
-                    {
-                        "title": "Fotor",
-                        "url": "https:\/\/www.fotor.com\/"
-                    },
-                    {
-                        "title": "Bensound",
-                        "url": "https:\/\/www.bensound.com\/sign-in"
-                    },
-                    {
-                        "title": "Polly Speech",
-                        "url": "https:\/\/signin.aws.amazon.com\/signin?redirect_uri=https%3A%2F%2Fus-east-1.console.aws.amazon.com%2Fpolly%2Fhome%2FSynthesizeSpeech%3Fca-oauth-flow-id%3D7d45%26ca-oauth-flow-id%3D29e9%26hashArgs%3D%2523%26isauthcode%3Dtrue%26oauthStart%3D1763736709321%26region%3Dus-east-1%26state%3DhashArgsFromTB_us-east-1_29d822389b5585c7&client_id=arn%3Aaws%3Asignin%3A%3A%3Aconsole%2Fpolly-tb&forceMobileApp=0&code_challenge=epV_L4lNWMcGr1bf6SxPg1ui8yk4NCQiYhVSLIZ33Hk&code_challenge_method=SHA-256"
-                    },
-                    {
-                        "title": "QR Code Generator",
-                        "url": "https:\/\/www.qrcode-tiger.com\/?utm_source=google-ads&utm_medium=cpc&utm_campaign=Remarketing+HP+PP+Signup+No+Purchase+USA&gad_source=1&gclid=CjwKCAiA74G9BhAEEiwA8kNfpWKBtOYw2B58nqUc5y6AlIUHFfuQutDHuFqV9NdChZesg2dw9HHHBBoCwSAQAvD_BwE"
-                    }
-                ],
-                "id": "cat_v5qprwxx_ml5ro29i"
-            }
-        ]
-    },
-    {
-        "title": "Home + Misc",
-        "categories": [
-            {
-                "title": "Daily",
-                "links": [
-                    {
-                        "title": "Gmail",
-                        "url": "https:\/\/mail.google.com\/mail\/u\/0\/#inbox"
-                    },
-                    {
-                        "title": "Google Photos",
-                        "url": "https:\/\/photos.google.com"
-                    },
-                    {
-                        "title": "Chat GPT",
-                        "url": "https:\/\/chat.openai.com\/chat"
-                    },
-                    {
-                        "title": "Google Gemini",
-                        "url": "https:\/\/gemini.google.com\/app"
-                    },
-                    {
-                        "title": "YouTube",
-                        "url": "https:\/\/www.youtube.com"
-                    },
-                    {
-                        "title": "Spotify",
-                        "url": "https:\/\/open.spotify.com\/playlist\/37i9dQZF1DXcBWIGoYBM5M#_gl=1*l6deiv*_gcl_au*MTA2OTQwNDQ0NC4xNzY3MzM2NzE1"
-                    },
-                    {
-                        "title": "Bible Gateway",
-                        "url": "https:\/\/www.biblegateway.com"
-                    },
-                    {
-                        "title": "Bogus Skiing",
-                        "url": "https:\/\/bogusbasin.org\/your-mountain\/conditions-webcams\/"
-                    }
-                ],
-                "id": "cat_b9egwejo_ml5ro29i"
-            },
-            {
-                "title": "Financial",
-                "links": [
-                    {
-                        "title": "Amazon",
-                        "url": "https:\/\/amazon.com"
-                    },
-                    {
-                        "title": "Consumer Direct",
-                        "url": "https:\/\/www.mydirectcare.com\/Default.aspx"
-                    },
-                    {
-                        "title": "DFAS My Pay",
-                        "url": "https:\/\/mypay.dfas.mil\/mypay.aspx"
-                    },
-                    {
-                        "title": "Blue Mountain E-Cards",
-                        "url": "https:\/\/www.bluemountain.com\/?gclsrc=aw.ds&gad_source=1&gad_campaignid=21725139278"
-                    },
-                    {
-                        "title": "Rufina - Links",
-                        "url": "https:\/\/lumpiaxpress.com\/0-links\/rufina-links.html"
-                    },
-                    {
-                        "title": "1099 Online: 201962953",
-                        "url": "https:\/\/1099online.com\/"
-                    }
-                ],
-                "id": "cat_vbmlrxw1_ml5ro29i"
-            },
-            {
-                "title": "Medical",
-                "links": [
-                    {
-                        "title": "Ron - Critical Care Info",
-                        "url": "https:\/\/docs.google.com\/spreadsheets\/d\/1ACguOXi39na4V-2KX__LtbkdTeoXAqVsC5aqUkIWNfc\/edit?usp=sharing"
-                    },
-                    {
-                        "title": "Sean - Critical Care Info",
-                        "url": "https:\/\/docs.google.com\/spreadsheets\/d\/105A95UXMBJXOGDId9r2Ygzn-3fYsUmBFQDftj1llAsg\/edit?pli=1&gid=0#gid=0"
-                    }
-                ],
-                "id": "cat_drmso1tt_ml5ro29i"
-            }
-        ]
-    }
+  {
+    "title": "Lumpia Xpress",
+    "categories": [
+      {
+        "title": "Daily",
+        "links": [
+          {
+            "title": "lumpiaxpress.com",
+            "url": "https://lumpiaxpress.com/"
+          },
+          {
+            "title": "FaceBook Page",
+            "url": "https://www.facebook.com/pg/LumpiaXpress/"
+          },
+          {
+            "title": "Instagram LX",
+            "url": "https://www.instagram.com/lumpiaxpress/"
+          },
+          {
+            "title": "Square Order Online",
+            "url": "https://lumpiaxpress.square.site/"
+          },
+          {
+            "title": "Door Dash",
+            "url": "https://doordash.com"
+          }
+        ],
+        "id": "cat_m5600sdz_ml5ro29i"
+      },
+      {
+        "title": "Bills",
+        "links": [
+          {
+            "title": "ServSafe® - ServSafe Manager",
+            "url": "https://www.servsafe.com/ServSafe-Manager"
+          },
+          {
+            "title": "Trademark Search (TESS)",
+            "url": "https://tmsearch.uspto.gov/bin/gate.exe?f=searchss&state=4802:kmykr0.1.1"
+          }
+        ],
+        "id": "cat_wmcsgs5a_ml5ro29i"
+      },
+      {
+        "title": "Shopping",
+        "links": [
+          {
+            "title": "Chef Store - Shoreline",
+            "url": "https://www.chefstore.com/locations/store/boise-564/"
+          },
+          {
+            "title": "Only From Hawaii Foods",
+            "url": "https://www.onlyfromhawaii.com/"
+          },
+          {
+            "title": "Asian Food Grocer",
+            "url": "https://www.asianfoodgrocer.com/"
+          },
+          {
+            "title": "WebstaurantStore",
+            "url": "https://www.webstaurantstore.com/?gclid=Cj0KCQiAqOucBhDrARIsAPCQL1bEQ-mc5GVimzwJrVVphkLDwzKNh0j-XoIfr2O9GHYvWXkPWrVXqwUaAskBEALw_wcB"
+          },
+          {
+            "title": "Standard Restaurant Supply",
+            "url": "https://www.standardrestaurant.com/"
+          },
+          {
+            "title": "WDF1000 PARTS TOWN - Waring 030306",
+            "url": "https://www.partstown.com/waring/war030306"
+          },
+          {
+            "title": "eReplacementParts.com Waring WDF-1000",
+            "url": "https://www.ereplacementparts.com/heating-elementwdf1000-120-volt-p-681850.html"
+          }
+        ],
+        "id": "cat_m11kvirh_ml5ro29i"
+      },
+      {
+        "title": "Google",
+        "links": [
+          {
+            "title": "LX Google Business Info",
+            "url": "https://www.google.com/search?q=Lumpia%20Xpress&stick=H4sIAAAAAAAA_-NgU1I1qDA1SUw2SjZLTEw0SLQwNrG0MqhIM0pMMjAxTEqzAMqZG1ksYuX1Kc0tyExUiCgoSi0uBgDOj2biOQAAAA&hl=en&mat=CY8_6v78XKVRElcBmzl_pcUgpAMiwFFScydXTDr6kkmYj3Nz0vxtkBtjAfXrOMNq5XU_4E6P8JeXdpE8aWb7kSn_ZdwwCdPX52PY2Jhx-fIi2kh1Wt65RUGsDXU_DUpoutM&authuser=1"
+          },
+          {
+            "title": "LX Yelp Business Info",
+            "url": "https://business.yelp.com/"
+          },
+          {
+            "title": "Google Drive",
+            "url": "https://drive.google.com/drive/u/0/home"
+          },
+          {
+            "title": "Google Forms",
+            "url": "https://docs.google.com/forms/u/0/"
+          },
+          {
+            "title": "Website Questionnaire",
+            "url": "https://docs.google.com/forms/d/e/1FAIpQLSc8qjdZTF35hxEXdqgr7n7O1nVZ-9rISu-J0LjU2BtjykRWew/viewform?usp=header"
+          },
+          {
+            "title": "Google Analytics",
+            "url": "https://analytics.google.com/analytics/web/#/a376123710p514431749/reports/intelligenthome?params=_u..nav%3Dmaui"
+          }
+        ],
+        "id": "cat_1z0yalhz_ml5ro29i"
+      }
+    ]
+  },
+  {
+    "title": "IdaFind",
+    "categories": [
+      {
+        "title": "IONOS",
+        "links": [
+          {
+            "title": "ThoughtPig.com",
+            "url": "https://thoughtpig.com/"
+          },
+          {
+            "title": "ThoughtPig Editor",
+            "url": "https://thoughtpig.com/editor-launch.php"
+          }
+        ],
+        "id": "cat_ls4j4i8l_ml5ro29i"
+      },
+      {
+        "title": "Clients",
+        "links": [
+          {
+            "title": "Website Intake",
+            "url": "https://idafind.com/client-questionnaire/website-intake.php"
+          },
+          {
+            "title": "Website Intake Editor + Client",
+            "url": "https://idafind.com/client-questionnaire/website-intake-editor.php"
+          },
+          {
+            "title": "Setmore (Sched. Appointmts)",
+            "url": "https://www.setmore.com"
+          },
+          {
+            "title": "FormSpree (Email Form Data)",
+            "url": "https://formspree.io/"
+          }
+        ],
+        "id": "cat_zm7bqc47_ml5ro29i"
+      },
+      {
+        "title": "Web Development",
+        "links": [
+          {
+            "title": "Fotor",
+            "url": "https://www.fotor.com/"
+          },
+          {
+            "title": "Bensound",
+            "url": "https://www.bensound.com/sign-in"
+          },
+          {
+            "title": "QR Code Generator",
+            "url": "https://www.qrcode-tiger.com/?utm_source=google-ads&utm_medium=cpc&utm_campaign=Remarketing+HP+PP+Signup+No+Purchase+USA&gad_source=1&gclid=CjwKCAiA74G9BhAEEiwA8kNfpWKBtOYw2B58nqUc5y6AlIUHFfuQutDHuFqV9NdChZesg2dw9HHHBBoCwSAQAvD_BwE"
+          }
+        ],
+        "id": "cat_v5qprwxx_ml5ro29i"
+      }
+    ]
+  },
+  {
+    "title": "Home + Misc",
+    "categories": [
+      {
+        "title": "Daily",
+        "links": [
+          {
+            "title": "Gmail",
+            "url": "https://mail.google.com/mail/u/0/#inbox"
+          },
+          {
+            "title": "Google Photos",
+            "url": "https://photos.google.com"
+          },
+          {
+            "title": "Chat GPT",
+            "url": "https://chat.openai.com/chat"
+          },
+          {
+            "title": "Google Gemini",
+            "url": "https://gemini.google.com/app"
+          },
+          {
+            "title": "YouTube",
+            "url": "https://www.youtube.com"
+          },
+          {
+            "title": "Spotify",
+            "url": "https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M#_gl=1*l6deiv*_gcl_au*MTA2OTQwNDQ0NC4xNzY3MzM2NzE1"
+          },
+          {
+            "title": "Bible Gateway",
+            "url": "https://www.biblegateway.com"
+          },
+          {
+            "title": "Bogus Skiing",
+            "url": "https://bogusbasin.org/your-mountain/conditions-webcams/"
+          }
+        ],
+        "id": "cat_b9egwejo_ml5ro29i"
+      },
+      {
+        "title": "Financial",
+        "links": [
+          {
+            "title": "Amazon",
+            "url": "https://amazon.com"
+          },
+          {
+            "title": "Blue Mountain E-Cards",
+            "url": "https://www.bluemountain.com/?gclsrc=aw.ds&gad_source=1&gad_campaignid=21725139278"
+          },
+          {
+            "title": "Rufina - Links",
+            "url": "https://lumpiaxpress.com/0-links/rufina-links.html"
+          }
+        ],
+        "id": "cat_vbmlrxw1_ml5ro29i"
+      }
+    ]
+  }
 ]
