@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ron Links</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 18px;
+      background: #f5f5f5;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Top nav */
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      background:#fff;
+      border:1px solid #e5e5e5;
+      border-radius:10px;
+      padding:10px 12px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+      margin-bottom:14px;
+    }
+
+    .brand{
+      font-size:1.6rem;
+      font-weight:700;
+      letter-spacing:0.2px;
+    }
+
+    .add-link{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+    }
+
+    .add-link input, .add-link select, .add-link button{
+      padding: 7px 9px;
+      font-size: 0.95rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    .add-link input[type="text"]{
+      min-width: 180px;
+      max-width: 260px;
+    }
+    .add-link button{
+      cursor:pointer;
+      border:1px solid #bbb;
+      background:#fafafa;
+    }
+
+    /* Panels */
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 1100px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .panel{
+      background:#fff;
+      border:1px solid #e5e5e5;
+      border-radius:12px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      min-height: 320px;
+    }
+
+    .panel-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding: 12px 12px;
+      background:#fafafa;
+      border-bottom:1px solid #eee;
+    }
+
+    .panel-title{
+      font-size:1.1rem;
+      font-weight:700;
+      margin:0;
+    }
+
+    .panel-sub{
+      font-size:0.85rem;
+      color:#666;
+      margin: 2px 0 0 0;
+    }
+
+    .panel-body{
+      padding: 10px 12px 14px 12px;
+    }
+
+    /* Link list */
+    .link-list{
+      list-style:none;
+      padding:0;
+      margin:0;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .link-item{
+      border:1px solid #e9e9e9;
+      border-radius:10px;
+      padding: 8px 10px;
+      background:#fff;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      cursor: move; /* draggable */
+    }
+    .link-item.drag-over{
+      outline:2px dashed #666;
+      background:#f0f0f0;
+    }
+    .link-item a{
+      text-decoration:none;
+      color:#333;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      word-break: break-word;
+      line-height:1.35;
+      width:100%;
+    }
+    .favicon{
+      width:16px;
+      height:16px;
+      flex-shrink:0;
+    }
+
+    /* IdaFind categories */
+    .category{
+      border: 1px solid #e9e9e9;
+      border-radius: 12px;
+      overflow:hidden;
+      margin-bottom: 10px;
+    }
+    .category-header{
+      background:#f2f2f2;
+      padding:10px 10px;
+      font-weight:700;
+      cursor:pointer;
+      user-select:none;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .category-body{
+      padding: 8px 10px 10px 10px;
+      display:none;
+    }
+    .category-body.open{
+      display:block;
+    }
+    .category-dropzone{
+      min-height: 10px;
+      padding: 2px;
+      border-radius: 10px;
+    }
+    .category-dropzone.drag-over{
+      outline:2px dashed #666;
+      background:#f0f0f0;
+    }
+
+    /* Delete Area */
+#deleteArea {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  transform: none;
+
+  width: 120px;
+  height: 40px;
+
+  background-color: #80A0B0;
+  color: white;
+  border: 2px dashed #FFF;
+  border-radius: 6px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.75rem;
+  line-height: 1.1;
+
+  opacity: 0.7;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+  z-index: 1000;
+}
+;
+    }
+    #deleteArea.drag-over-delete {
+      background-color: #A0B0C0;
+      transform: translateX(-50%) scale(1.05);
+      border-style: solid;
+      opacity: 1.0;
+    }
+
+    .hint{
+      color:#777;
+      font-size:0.86rem;
+      margin-top:8px;
+    }
+    .small{
+      font-size:0.85rem;
+      color:#666;
+    }
+    .new-cat-btn{
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cfcfcf;
+      background: #ffffff;
+      cursor: pointer;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+    .new-cat-btn:hover{ background:#f3f3f3; }
+
+    /* Allow dropping onto category headers even when collapsed */
+    .category-header.drag-over{
+      outline: 2px dashed #666;
+      background-color: #f0f0f0;
+    }
+
+  
+    /* Category drag handle */
+    .cat-drag-handle{
+      cursor: grab;
+      user-select: none;
+      padding-right: 8px;
+      opacity: 0.8;
+      font-weight: normal;
+    }
+    .cat-drag-handle:active{ cursor: grabbing; }
+
+    .category.drag-over-cat{
+      outline: 2px dashed #666;
+      background: #f6f6f6;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div>
+      <div class="brand">Ron Links</div>
+<div class="small">
+  One page • 3 panels • Categories in every panel
+  <span style="font-weight:bold; margin-left:7ch;">
+    Tip: Drag links to reorder, drag between categories/panels, or drag onto the delete box to remove.
+  </span>
+</div>
+
+
+    </div>
+
+    <form class="add-link" id="addLinkForm" onsubmit="return false;">
+      <input type="text" id="newLinkTitle" placeholder="Link title (e.g., Gmail - LX)" />
+      <input type="text" id="newLinkURL" placeholder="URL (e.g., https://example.com)" />
+
+      <select id="newLinkSection">
+        <option value="lumpia">Lumpia Xpress</option>
+        <option value="idafind">IdaFind</option>
+        <option value="home">Home + Misc</option>
+      </select>
+
+      <select id="newLinkCategory"></select>
+      <input type="text" id="newCategoryName" placeholder="New category (optional)" />
+
+      <button id="addLinkBtn" type="button">Add Link</button>
+    </form>
+  </div>
+
+  <div class="grid">
+    <section class="panel" id="panel-lumpia">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">Lumpia Xpress</div>
+          <div class="panel-sub">Categories expand/collapse • Drag links between categories/panels</div>
+          <button class="new-cat-btn" type="button" data-section="lumpia">+ Category</button>
+      </div>
+      </div>
+      <div class="panel-body">
+        <div class="panel-body-inner" id="lumpia-body"></div>
+      </div>
+    </section>
+
+    <section class="panel" id="panel-idafind">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">IdaFind</div>
+          <div class="panel-sub">Categories expand/collapse • Drag links between categories/panels</div>
+          <button class="new-cat-btn" type="button" data-section="idafind">+ Category</button>
+      </div>
+      </div>
+      <div class="panel-body" id="idafind-body"></div>
+    </section>
+
+    <section class="panel" id="panel-home">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">Home + Misc</div>
+          <div class="panel-sub">Categories expand/collapse • Drag links between categories/panels</div>
+          <button class="new-cat-btn" type="button" data-section="home">+ Category</button>
+      </div>
+      </div>
+      <div class="panel-body">
+        <div class="panel-body-inner" id="home-body"></div>
+      </div>
+    </section>
+  </div>
+ 
+
+  <div id="deleteArea">Drag Link Here to Delete</div>
+
+  
+<script>
+  const JSON_FILE_PATH = './links.json';
+  const PHP_SAVE_SCRIPT = './save_links.php';
+
+  // Unified model (array of 3 sections), each with categories:
+  // [
+  //   { title, categories:[{title, links:[{title,url}, ...]}] },
+  //   { title, categories:[...] },
+  //   { title, categories:[...] }
+  // ]
+  let model = null;
+  // Category open/closed state (persists through re-renders)
+  const openCategoryIds = new Set();
+
+  function newCategoryId() {
+    return "cat_" + Math.random().toString(36).slice(2, 10) + "_" + Date.now().toString(36);
+  }
+
+  function ensureCategoryIds(sec) {
+    if (!sec || !Array.isArray(sec.categories)) return;
+    sec.categories.forEach((c) => {
+      if (c && typeof c === "object" && !c.id) c.id = newCategoryId();
+    });
+  }
+
+
+  // Drag state:
+  // { from: "lumpia"|"idafind"|"home", categoryIndex: number, linkIndex: number }
+  let dragData = null;
+  let catDragData = null; // { fromSection, catIndex }
+
+  // ---------- Utilities ----------
+  function createFaviconImg(url) {
+    const img = document.createElement("img");
+    img.src = "https://www.google.com/s2/favicons?sz=32&domain_url=" + encodeURIComponent(url);
+    img.alt = "";
+    img.className = "favicon";
+    return img;
+  }
+
+  function normalizeUrl(url) {
+    let u = (url || "").trim();
+    if (!u) return "";
+    if (!/^https?:\/\//i.test(u)) u = "https://" + u;
+    return u;
+  }
+
+  function ensureSectionShape(sec, fallbackTitle) {
+    if (!sec || typeof sec !== "object") sec = {};
+    if (!sec.title) sec.title = fallbackTitle;
+    if (!Array.isArray(sec.categories)) sec.categories = [{ title: "Links", links: [] }];
+    if (sec.categories.length === 0) sec.categories.push({ title: "Links", links: [] });
+    sec.categories.forEach((c, i) => {
+      if (!c || typeof c !== "object") sec.categories[i] = { title: "Category " + (i+1), links: [] };
+      if (!sec.categories[i].title) sec.categories[i].title = "Category " + (i+1);
+      if (!Array.isArray(sec.categories[i].links)) sec.categories[i].links = [];
+      if (!sec.categories[i].id) sec.categories[i].id = newCategoryId();
+    });
+    return sec;
+  }
+
+  // ---------- Load / Save ----------
+  async function loadRaw() {
+    try {
+      const cacheBustingURL = JSON_FILE_PATH + '?t=' + new Date().getTime();
+      const r = await fetch(cacheBustingURL);
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return await r.json();
+    } catch (e) {
+      console.error("Could not load links.json. Using empty default.", e);
+      return [];
+    }
+  }
+
+  function emptyModel() {
+    return [
+      { title: "Lumpia Xpress", categories: [{ title: "Links", links: [] }] },
+      { title: "IdaFind", categories: [{ title: "Links", links: [] }] },
+      { title: "Home + Misc", categories: [{ title: "Links", links: [] }] }
+    ];
+  }
+
+  function isUnifiedCategoryModel(raw) {
+    return Array.isArray(raw)
+      && raw.length === 3
+      && raw.every(s => s && Array.isArray(s.categories) && s.categories.every(c => c && Array.isArray(c.links)));
+  }
+
+  function isPreviousOption2Model(raw) {
+    // The prior one-page model: [ {title, links:[]}, {title, categories:[...]}, {title, links:[]} ]
+    return Array.isArray(raw)
+      && raw.length === 3
+      && raw[0] && Array.isArray(raw[0].links)
+      && raw[1] && Array.isArray(raw[1].categories)
+      && raw[2] && Array.isArray(raw[2].links);
+  }
+
+  function migrateLegacy(raw) {
+    // Legacy could be:
+    // - previous one-page model (Option 2 earlier)
+    // - column-array model (6/9/whatever columns), each {title, links:[]}
+    const out = emptyModel();
+
+    if (isUnifiedCategoryModel(raw)) return raw;
+
+    // Previous Option 2 model -> wrap Lumpia/Home links into default categories
+    if (isPreviousOption2Model(raw)) {
+      out[0].categories[0].links = raw[0].links || [];
+      out[1].categories = raw[1].categories || [{ title: "Links", links: [] }];
+      out[2].categories[0].links = raw[2].links || [];
+      return out;
+    }
+
+    if (!Array.isArray(raw)) return out;
+
+    const cols = raw.filter(x => x && Array.isArray(x.links));
+
+    if (cols.length <= 6) {
+      // 6-col world: Lumpia 0-1, IdaFind 2-3, Home 4-5
+      const l = [0,1].flatMap(i => (cols[i]?.links || []));
+      const i = [2,3].flatMap(i => (cols[i]?.links || []));
+      const h = [4,5].flatMap(i => (cols[i]?.links || []));
+      out[0].categories[0].links = l;
+      out[1].categories[0].links = i;
+      out[2].categories[0].links = h;
+      return out;
+    }
+
+    // 9+ columns: Lumpia 0-2, IdaFind 3-5, Home 6+ (6-8 and beyond)
+    const lumpia = [0,1,2].flatMap(i => (cols[i]?.links || []));
+    const idafind = [3,4,5].flatMap(i => (cols[i]?.links || []));
+    const home = cols.slice(6).flatMap(c => (c.links || []));
+    out[0].categories[0].links = lumpia;
+    out[1].categories[0].links = idafind;
+    out[2].categories[0].links = home;
+    return out;
+  }
+
+  async function saveModel() {
+    try {
+      const response = await fetch(PHP_SAVE_SCRIPT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(model)
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        console.error("Server Save Error:", result.message || response.statusText);
+      } else {
+        console.log("Server Save Success:", result.message || "OK");
+      }
+    } catch (e) {
+      console.error("Network or PHP script execution error:", e);
+    }
+  }
+
+  // ---------- Rendering ----------
+  const lumpiaBody = document.getElementById("lumpia-body");
+  const idafindBody = document.getElementById("idafind-body");
+  const homeBody = document.getElementById("home-body");
+
+  function sectionIndexByName(name) {
+    if (name === "lumpia") return 0;
+    if (name === "idafind") return 1;
+    return 2;
+  }
+
+  function getSectionByName(name) {
+    return model[sectionIndexByName(name)];
+  }
+
+  function addCategory(sectionName, title) {
+    const name = (title || "").trim();
+    if (!name) return false;
+    const sec = getSectionByName(sectionName);
+    sec.categories = Array.isArray(sec.categories) ? sec.categories : [];
+    // Avoid duplicates (case-insensitive)
+    const exists = sec.categories.some(c => (c.title || "").trim().toLowerCase() === name.toLowerCase());
+    if (exists) return false;
+    const newCat = { id: newCategoryId(), title: name, links: [] };
+    sec.categories.push(newCat);
+    openCategoryIds.add(newCat.id);
+    return true;
+  }
+
+
+  function getLinksRef(sectionName, categoryIndex=0) {
+    const sec = getSectionByName(sectionName);
+    const cats = sec.categories || [];
+    const cat = cats[categoryIndex] || cats[0] || { links: [] };
+    return cat.links || [];
+  }
+
+  function makeLinkLI(link, fromSection, linkIndex, categoryIndex=0) {
+    const li = document.createElement("li");
+    li.className = "link-item";
+    li.draggable = true;
+
+    li.dataset.fromSection = fromSection;
+    li.dataset.linkIndex = String(linkIndex);
+    li.dataset.categoryIndex = String(categoryIndex);
+
+    li.addEventListener("dragstart", (e) => {
+      dragData = { from: fromSection, linkIndex, categoryIndex };
+      e.dataTransfer.effectAllowed = "move";
+      e.dataTransfer.setData("text/plain", "moving-link");
+    });
+
+    li.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      li.classList.add("drag-over");
+      e.dataTransfer.dropEffect = "move";
+    });
+
+    li.addEventListener("dragleave", () => li.classList.remove("drag-over"));
+
+    li.addEventListener("drop", (e) => {
+      e.preventDefault();
+      li.classList.remove("drag-over");
+      if (!dragData) return;
+
+      const target = { to: fromSection, categoryIndex, linkIndex };
+      moveLink(dragData, target, (e.clientY > li.getBoundingClientRect().top + li.getBoundingClientRect().height/2));
+    });
+
+    const a = document.createElement("a");
+    a.href = link.url;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    a.appendChild(createFaviconImg(link.url));
+    a.appendChild(document.createTextNode(link.title || link.url));
+    li.appendChild(a);
+
+    return li;
+  }
+
+
+  // ---------- Category Drag / Drop ----------
+  function handleCategoryDragStart(e, fromSection, catIndex){
+    catDragData = { fromSection, catIndex };
+    e.dataTransfer.effectAllowed = "move";
+    e.dataTransfer.setData("text/plain", "moving-category");
+  }
+
+  function handleCategoryDragOver(e, box){
+    if (!catDragData) return;
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+    box.classList.add("drag-over-cat");
+  }
+
+  function handleCategoryDragLeave(box){
+    box.classList.remove("drag-over-cat");
+  }
+
+  function handleCategoryDrop(e, toSection, targetCatIndex, box){
+    if (!catDragData) return;
+    e.preventDefault();
+    handleCategoryDragLeave(box);
+
+    const srcSec = getSectionByName(catDragData.fromSection);
+    const dstSec = getSectionByName(toSection);
+    if (!srcSec?.categories || !dstSec?.categories) { catDragData = null; return; }
+
+    const [movedCat] = srcSec.categories.splice(catDragData.catIndex, 1);
+    if (!movedCat) { catDragData = null; return; }
+
+    // Determine insert index (before/after based on cursor position)
+    let insertIndex = targetCatIndex;
+    if (catDragData.fromSection === toSection && targetCatIndex > catDragData.catIndex){
+      insertIndex -= 1; // account for removal shift
+    }
+
+    const rect = box.getBoundingClientRect();
+    const after = e.clientY > rect.top + rect.height / 2;
+    insertIndex = insertIndex + (after ? 1 : 0);
+
+    if (insertIndex < 0) insertIndex = 0;
+    if (insertIndex > dstSec.categories.length) insertIndex = dstSec.categories.length;
+
+    dstSec.categories.splice(insertIndex, 0, movedCat);
+
+    catDragData = null;
+    renderAll();
+    saveModel();
+  }
+
+
+  function renderSection(container, sectionName) {
+    container.innerHTML = "";
+
+    const sec = getSectionByName(sectionName);
+    const cats = Array.isArray(sec.categories) ? sec.categories : [];
+
+    cats.forEach((cat, cIdx) => {
+      const box = document.createElement("div");
+      box.className = "category";
+      // Allow dropping categories onto other categories (reorder / move across panels)
+      box.addEventListener("dragover", (e) => handleCategoryDragOver(e, box));
+      box.addEventListener("dragleave", () => handleCategoryDragLeave(box));
+      box.addEventListener("drop", (e) => handleCategoryDrop(e, sectionName, cIdx, box));
+
+      const header = document.createElement("div");
+      header.className = "category-header";
+
+      // Drag handle for reordering / moving categories (doesn't interfere with header click)
+      const handle = document.createElement("span");
+      handle.className = "cat-drag-handle";
+      handle.textContent = "☰";
+      handle.title = "Drag category";
+      handle.draggable = true;
+      handle.addEventListener("click", (ev) => ev.stopPropagation());
+      handle.addEventListener("dragstart", (e) => handleCategoryDragStart(e, sectionName, cIdx));
+
+      const left = document.createElement("span");
+      left.textContent = cat.title || "Category";
+      const right = document.createElement("span");
+      right.textContent = "▸";
+      header.appendChild(handle);
+      header.appendChild(left);
+      header.appendChild(right);
+      // Allow dropping onto the category header even when collapsed (append to end)
+      header.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        header.classList.add("drag-over");
+        e.dataTransfer.dropEffect = "move";
+      });
+      header.addEventListener("dragleave", () => header.classList.remove("drag-over"));
+      header.addEventListener("drop", (e) => {
+        e.preventDefault();
+        header.classList.remove("drag-over");
+        if (!dragData) return;
+        const currentLinks = getLinksRef(sectionName, cIdx);
+        const target = { to: sectionName, categoryIndex: cIdx, linkIndex: currentLinks.length };
+        moveLink(dragData, target, true, true);
+      });
+
+
+      const body = document.createElement("div");
+      body.className = "category-body";
+
+      const catId = cat.id;
+      if (catId && openCategoryIds.has(catId)) {
+        body.classList.add("open");
+        right.textContent = "▾";
+      }
+
+      const dropzone = document.createElement("div");
+      dropzone.className = "category-dropzone";
+
+      const ul = document.createElement("ul");
+      ul.className = "link-list";
+
+      const links = Array.isArray(cat.links) ? cat.links : [];
+      links.forEach((link, idx) => {
+        if (!link?.url) return;
+        ul.appendChild(makeLinkLI(link, sectionName, idx, cIdx));
+      });
+
+      // Drop into category (append)
+      dropzone.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dropzone.classList.add("drag-over");
+        e.dataTransfer.dropEffect = "move";
+      });
+
+      dropzone.addEventListener("dragleave", () => dropzone.classList.remove("drag-over"));
+
+      dropzone.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dropzone.classList.remove("drag-over");
+        if (!dragData) return;
+
+        const target = { to: sectionName, categoryIndex: cIdx, linkIndex: links.length };
+        moveLink(dragData, target, true, true);
+      });
+
+      dropzone.appendChild(ul);
+      body.appendChild(dropzone);
+
+      header.addEventListener("click", () => {
+        const open = body.classList.toggle("open");
+        right.textContent = open ? "▾" : "▸";
+        if (catId) {
+          if (open) openCategoryIds.add(catId);
+          else openCategoryIds.delete(catId);
+        }
+      });
+
+      box.appendChild(header);
+      box.appendChild(body);
+      container.appendChild(box);
+    });
+
+    // Section-level drop (append into first category if dropped on empty space)
+    container.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = "move";
+    });
+    container.addEventListener("drop", (e) => {
+      // Category drop on empty space -> append category to end of this section
+      if (catDragData) {
+        e.preventDefault();
+        const dstSec = getSectionByName(sectionName);
+        const srcSec = getSectionByName(catDragData.fromSection);
+        if (!dstSec?.categories || !srcSec?.categories) { catDragData = null; return; }
+        const [movedCat] = srcSec.categories.splice(catDragData.catIndex, 1);
+        if (!movedCat) { catDragData = null; return; }
+        dstSec.categories.push(movedCat);
+        catDragData = null;
+        renderAll();
+        saveModel();
+        return;
+      }
+
+      // If user drops on container but not on a category dropzone, append LINK to first category
+      if (!dragData) return;
+      // Prevent double-handling when dropzone already handled it
+      if (e.target && (e.target.closest && e.target.closest(".category-dropzone"))) return;
+
+      const target = { to: sectionName, categoryIndex: 0, linkIndex: getLinksRef(sectionName, 0).length };
+      moveLink(dragData, target, true, true);
+    });
+  }
+
+  function renderAll() {
+    renderSection(lumpiaBody, "lumpia");
+    renderSection(idafindBody, "idafind");
+    renderSection(homeBody, "home");
+    refreshCategoryUI();
+  }
+
+  // ---------- Move / Delete ----------
+  function removeFromSource(src) {
+    const srcLinks = getLinksRef(src.from, src.categoryIndex);
+    const [moved] = srcLinks.splice(src.linkIndex, 1);
+    return moved;
+  }
+
+  function insertIntoTarget(target, item, insertIndex) {
+    const destLinks = getLinksRef(target.to, target.categoryIndex);
+    if (insertIndex < 0) insertIndex = 0;
+    if (insertIndex > destLinks.length) insertIndex = destLinks.length;
+    destLinks.splice(insertIndex, 0, item);
+  }
+
+function moveLink(src, target, insertAfter, forceAppend=false) {
+
+  // --- Capture source category info BEFORE removal ---
+  const srcSectionName = src.from;
+  const srcCatIndex = Number(src.categoryIndex || 0);
+  const srcSection = getSectionByName(srcSectionName);
+  const srcCategory = srcSection?.categories?.[srcCatIndex];
+  const srcCategoryTitle = srcCategory?.title || "this category";
+  const srcCategoryId = srcCategory?.id;
+
+  // --- Remove the link from its source ---
+  const moved = removeFromSource(src);
+  if (!moved) { dragData = null; return; }
+
+  let insertIndex = target.linkIndex;
+
+  if (forceAppend) {
+    insertIndex = getLinksRef(target.to, target.categoryIndex).length;
+  } else {
+    insertIndex = target.linkIndex + (insertAfter ? 1 : 0);
+
+    const sameList =
+      (src.from === target.to) &&
+      (String(src.categoryIndex ?? 0) === String(target.categoryIndex ?? 0));
+
+    if (sameList && insertIndex > src.linkIndex) insertIndex -= 1;
+  }
+
+  // --- Insert into the target ---
+  insertIntoTarget(target, moved, insertIndex);
+
+  // --- NEW: If source category is now empty, offer to remove it too ---
+  const cats = srcSection?.categories || [];
+  const catStillHere = cats[srcCatIndex];
+  const linksNow = catStillHere?.links || [];
+  const isNowEmpty = Array.isArray(linksNow) && linksNow.length === 0;
+
+  // Safety: only offer to delete the category if at least one category would remain
+  if (isNowEmpty && cats.length > 1) {
+    const ok = confirm(
+      `That was the last link in "${srcCategoryTitle}".\n\nRemove the category too?`
+    );
+
+    if (ok) {
+      if (srcCategoryId) openCategoryIds.delete(srcCategoryId);
+      cats.splice(srcCatIndex, 1);
+    }
+  }
+
+  dragData = null;
+  renderAll();
+  saveModel();
+}
+
+
+// Delete Area logic
+const deleteArea = document.getElementById("deleteArea");
+if (deleteArea) {
+  deleteArea.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+    deleteArea.classList.add("drag-over-delete");
+  });
+
+  deleteArea.addEventListener("dragleave", () => {
+    deleteArea.classList.remove("drag-over-delete");
+  });
+
+  deleteArea.addEventListener("drop", (e) => {
+    e.preventDefault();
+    deleteArea.classList.remove("drag-over-delete");
+    if (!dragData) return;
+
+    // Capture source info BEFORE removal (linkIndex will become invalid after splice)
+    const srcSectionName = dragData.from;
+    const srcCatIndex = Number(dragData.categoryIndex || 0);
+    const srcSection = getSectionByName(srcSectionName);
+    const srcCategory = srcSection?.categories?.[srcCatIndex];
+    const srcCategoryTitle = srcCategory?.title || "this category";
+    const srcCategoryId = srcCategory?.id;
+
+    // Remove the dragged link
+    const removed = removeFromSource(dragData);
+    if (!removed) {
+      dragData = null;
+      return;
+    }
+
+    console.log("Deleted link:", removed.title || removed.url);
+
+    // If that was the last link in the category, offer to remove the category too
+    const cats = srcSection?.categories || [];
+    const catStillHere = cats[srcCatIndex];
+    const linksNow = catStillHere?.links || [];
+    const isNowEmpty = Array.isArray(linksNow) && linksNow.length === 0;
+
+    // Safety: only offer delete if the section would still have at least 1 category left
+    if (isNowEmpty && cats.length > 1) {
+      const ok = confirm(
+        `That was the last link in "${srcCategoryTitle}".\n\nRemove the category too?`
+      );
+
+      if (ok) {
+        // Remove open/closed UI state for that category
+        if (srcCategoryId) openCategoryIds.delete(srcCategoryId);
+
+        // Remove the category itself
+        cats.splice(srcCatIndex, 1);
+      }
+    }
+
+    dragData = null;
+    renderAll();
+    saveModel();
+  });
+}
+
+
+  // ---------- Add Link UI ----------
+  const sectionSelect = document.getElementById("newLinkSection");
+  const categorySelect = document.getElementById("newLinkCategory");
+  const newCategoryInput = document.getElementById("newCategoryName");
+
+  function refreshCategoryUI() {
+    // Populate category dropdown for selected section
+    const secName = sectionSelect.value;
+    const sec = getSectionByName(secName);
+    const cats = sec.categories || [];
+
+    categorySelect.innerHTML = "";
+    cats.forEach((c, idx) => {
+      const opt = document.createElement("option");
+      opt.value = String(idx);
+      opt.textContent = c.title || ("Category " + (idx + 1));
+      categorySelect.appendChild(opt);
+    });
+
+    // Update placeholder to match section
+    const label = secName === "lumpia" ? "Lumpia" : (secName === "idafind" ? "IdaFind" : "Home");
+    newCategoryInput.placeholder = "New category (optional • " + label + ")";
+  }
+
+  sectionSelect.addEventListener("change", refreshCategoryUI);
+
+  // Quick "+ Category" buttons in each panel header
+  document.querySelectorAll(".new-cat-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const sec = btn.getAttribute("data-section");
+      const name = prompt("New category name:");
+      if (!name) return;
+      if (!addCategory(sec, name)) {
+        alert("Category not added (blank or already exists).");
+        return;
+      }
+      saveModel();
+      renderAll();
+
+      // If user is currently adding links to this same section, refresh dropdowns
+      refreshCategoryUI();
+    });
+  });
+
+
+  document.getElementById("addLinkBtn").addEventListener("click", () => {
+    const title = document.getElementById("newLinkTitle").value.trim();
+    const url = normalizeUrl(document.getElementById("newLinkURL").value);
+    const secName = sectionSelect.value;
+
+    if (!title || !url) {
+      alert("Please enter both a title and a URL.");
+      return;
+    }
+
+    const sec = getSectionByName(secName);
+    sec.categories = sec.categories || [{ title: "Links", links: [] }];
+
+    let catName = (newCategoryInput.value || "").trim();
+    let catIdx = Number(categorySelect.value || "0");
+
+    if (catName) {
+      sec.categories.push({ title: catName, links: [] });
+      catIdx = sec.categories.length - 1;
+      newCategoryInput.value = "";
+    }
+
+    sec.categories[catIdx] = sec.categories[catIdx] || { title: "Links", links: [] };
+    sec.categories[catIdx].links = sec.categories[catIdx].links || [];
+    sec.categories[catIdx].links.push({ title, url });
+
+    saveModel();
+    renderAll();
+
+    document.getElementById("newLinkTitle").value = "";
+    document.getElementById("newLinkURL").value = "";
+  });
+
+  // ---------- Init ----------
+  async function init() {
+    const raw = await loadRaw();
+    model = migrateLegacy(raw);
+
+    // Ensure consistent shapes
+    model[0] = ensureSectionShape(model[0], "Lumpia Xpress");
+    model[1] = ensureSectionShape(model[1], "IdaFind");
+    model[2] = ensureSectionShape(model[2], "Home + Misc");
+
+    renderAll();
+  }
+
+  init();
+</script>
+
+</body>
+</html>
