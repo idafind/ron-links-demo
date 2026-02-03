@@ -1023,6 +1023,13 @@ function resetDemo() {
     model[2] = ensureSectionShape(model[2], "Home + Misc");
 
     renderAll();
+    if (DEMO_MODE) {
+  const b = document.createElement("div");
+  b.textContent = "DEMO MODE: Changes are saved only in this browser.";
+  b.style.cssText = "position:fixed;left:10px;bottom:10px;z-index:9999;padding:8px 10px;border-radius:10px;background:#111;color:#fff;font:14px/1.2 system-ui;opacity:.9";
+  document.body.appendChild(b);
+}
+
   }
 
   init();
