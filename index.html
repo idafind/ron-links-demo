@@ -207,11 +207,9 @@
   box-shadow: 0 3px 8px rgba(0,0,0,0.25);
   z-index: 1000;
 }
-;
-    }
     #deleteArea.drag-over-delete {
       background-color: #A0B0C0;
-      transform: translateX(-50%) scale(1.05);
+      transform: scale(1.05);
       border-style: solid;
       opacity: 1.0;
     }
@@ -656,7 +654,40 @@ async function saveModel() {
   function renderSection(container, sectionName) {
     container.innerHTML = "";
 
-    const sec = getSectionByName(sectionName);
+    
+
+    if (!container.dataset.bound) {
+      container.dataset.bound = "1";
+    container.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = "move";
+    });
+    
+    container.addEventListener("drop", (e) => {
+      // Category drop on empty space -> append category to end of this section
+      if (catDragData) {
+        e.preventDefault();
+        const dstSec = getSectionByName(sectionName);
+        const srcSec = getSectionByName(catDragData.fromSection);
+        if (!dstSec?.categories || !srcSec?.categories) { catDragData = null; return; }
+        const [movedCat] = srcSec.categories.splice(catDragData.catIndex, 1);
+        if (!movedCat) { catDragData = null; return; }
+        dstSec.categories.push(movedCat);
+        catDragData = null;
+        renderAll();
+        saveModel();
+        return;
+      }
+
+      // If user drops on container but not on a category dropzone, append LINK to first category
+      if (!dragData) return;
+      // Prevent double-handling when dropzone already handled it
+      if (e.target && (e.target.closest && e.target.closest(".category-dropzone"))) return;
+
+      const target = { to: sectionName, categoryIndex: 0, linkIndex: getLinksRef(sectionName, 0).length };
+      moveLink(dragData, target, true, true);
+    });    }
+const sec = getSectionByName(sectionName);
     const cats = Array.isArray(sec.categories) ? sec.categories : [];
 
     cats.forEach((cat, cIdx) => {
@@ -760,11 +791,7 @@ async function saveModel() {
     });
 
     // Section-level drop (append into first category if dropped on empty space)
-    container.addEventListener("dragover", (e) => {
-      e.preventDefault();
-      e.dataTransfer.dropEffect = "move";
-    });
-    container.addEventListener("drop", (e) => {
+container.addEventListener("drop", (e) => {
       // Category drop on empty space -> append category to end of this section
       if (catDragData) {
         e.preventDefault();
@@ -793,7 +820,7 @@ async function saveModel() {
   function renderAll() {
     renderSection(coffeeBody, "coffee");
     renderSection(webdevBody, "webdev");
-    renderSection(variousBody, "variou");
+    renderSection(variousBody, "various");
     refreshCategoryUI();
   }
 
