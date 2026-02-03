@@ -339,6 +339,10 @@
   const JSON_FILE_PATH = './links.json';
   const PHP_SAVE_SCRIPT = './save_links.php';
 
+  const LOCALSTORAGE_KEY = "ronLinksModel_v1";
+  const DEMO_MODE = (location.hostname.endsWith("github.io")); // GitHub Pages = demo mode
+
+
   // Unified model (array of 3 sections), each with categories:
   // [
   //   { title, categories:[{title, links:[{title,url}, ...]}] },
